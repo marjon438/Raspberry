@@ -11,4 +11,5 @@ class HelloWorld(Resource):
 api.add_resource(HelloWorld, '/')
 
 if __name__ == '__main__':
+    print('hello world')
     app.run(debug=True)
