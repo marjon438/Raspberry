@@ -4,7 +4,7 @@ from flask_restful import Resource, Api
 app = Flask(__name__)
 api = Api(app)
 
-todos = {}
+todos = {"todo1":"test"}
 
 class TodoSimple(Resource):
     def get(self, todo_id):
