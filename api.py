@@ -8,7 +8,7 @@ todos = {"todo1":"test"}
 
 class TodoSimple(Resource):
     def get(self, todo_id):
-        return {todo_id: todos[todo_id]}
+        return todos[todo_id]
 
     def put(self, todo_id):
         todos[todo_id] = request.form['data']
