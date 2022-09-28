@@ -1,7 +1,7 @@
 from urllib import request
 from requests import put, get, delete, post
 
-base = "http://192.168.10.138:5000/helloworld/"
+base = "http://192.168.10.138:5000/todos/"
 
 while True:
     print("1 get")
