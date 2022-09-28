@@ -1,8 +1,4 @@
-from ast import Delete
 from dataclasses import fields
-from email.policy import strict
-import marshal
-from os import strerror
 from xmlrpc.client import boolean
 from flask import Flask
 from flask_restful import Resource, Api, reqparse, fields, marshal_with, abort
@@ -17,9 +13,7 @@ db = SQLAlchemy(app)
 class Todos(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
-    done = db.Column(db.Boolean, nullable=False, default=False)
-
-db.create_all()
+    done = db.Column(db.Boolean, nullable=False, default=True)
 
 get_args = reqparse.RequestParser()
 get_args.add_argument("id", type=str, help="Reqparse help: You need to send a id of the todo")
@@ -40,6 +34,10 @@ serializing = {
     "name": fields.String,
     "done": fields.Boolean
 }
+
+new_todo = Todos(name='test3', done=False)
+db.session.add(new_todo)
+db.session.commit()
 
 class TodosApi(Resource):
     
@@ -89,7 +87,7 @@ class TodosApi(Resource):
             abort(404, message="Could not find todo")
         
 
-api.add_resource(TodosApi, '/Todos/','/Todos/<String: id>')
+api.add_resource(TodosApi, '/Todos')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
